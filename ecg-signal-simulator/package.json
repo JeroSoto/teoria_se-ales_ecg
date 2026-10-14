@@ -1,0 +1,27 @@
+{
+  "name": "ecg-signal-simulator",
+  "version": "1.1.0",
+  "description": "Simulación en tiempo real de ECG y análisis frecuencial FFT para la asignatura de Teoría de Señales",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "analyze": "python3 scripts/analisis_fft.py"
+  },
+  "keywords": [
+    "ecg",
+    "signal-processing",
+    "teoria-de-senales",
+    "fft",
+    "biomedical",
+    "nodejs",
+    "javascript",
+    "canvas",
+    "python"
+  ],
+  "author": "Jerónimo Soto Villada & Milady Cristina Guapacha Montoya",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

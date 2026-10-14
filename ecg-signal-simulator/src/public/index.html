@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de ECG & Teoría de Señales</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <span class="heart-icon">🫀</span>
+            <h1>Simulador ECG & Teoría de Señales</h1>
+        </div>
+        <div class="badge">Universidad de Manizales</div>
+    </header>
+
+    <main class="container">
+        <section class="monitor-section">
+            <div class="screen-card">
+                <div class="screen-header">
+                    <h2 id="signalHeading">ECG simulado · fs = 250 Hz</h2>
+                    <div class="status-indicator">
+                        <span id="dot-live" class="dot live"></span>
+                        <span id="text-status">SIMULACIÓN</span>
+                    </div>
+                </div>
+
+                <div class="canvas-container">
+                    <canvas id="ecgCanvas" width="900" height="320"></canvas>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-label">Frecuencia cardíaca</span>
+                        <span class="metric-value" id="bpmDisplay">75</span>
+                        <span class="metric-unit">lpm</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Frecuencia fundamental (f)</span>
+                        <span class="metric-value" id="freqDisplay">1.25</span>
+                        <span class="metric-unit">Hz</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Intervalo RR</span>
+                        <span class="metric-value" id="rrDisplay">0.80</span>
+                        <span class="metric-unit">s</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Filtros Activos</span>
+                        <span class="metric-value status-text" id="filterStatus">INACTIVOS</span>
+                        <span class="metric-unit">DSP</span>
+                    </div>
+                </div>
+                <p class="signal-notice">
+                    El pulsómetro aporta la frecuencia cardíaca; la forma de onda ECG que se muestra sigue siendo una simulación educativa.
+                </p>
+            </div>
+
+            <div class="controls-card">
+                <h3>♥️ Conexión con pulsómetro</h3>
+                <div class="device-controls">
+                    <p id="sensorStatus" class="sensor-status" role="status" aria-live="polite">
+                        Sin pulsómetro conectado. Puedes continuar con la simulación.
+                    </p>
+                    <div class="device-buttons">
+                        <button id="btnConnectSensor" class="btn btn-connect" type="button">Conectar pulsómetro Bluetooth</button>
+                        <button id="btnDisconnectSensor" class="btn btn-disconnect" type="button" disabled>Desconectar</button>
+                    </div>
+                    <p class="sensor-help">
+                        Compatible con sensores Bluetooth LE que anuncian el servicio estándar “Heart Rate” (por ejemplo, bandas pectorales).
+                        Requiere Chrome o Edge y una conexión segura (localhost o HTTPS).
+                    </p>
+                </div>
+
+                <hr class="divider">
+
+                <h3>🎛️ Controles de Simulación y Ruido</h3>
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label for="bpmSlider">Frecuencia Cardíaca (BPM): <strong id="bpmVal">75</strong></label>
+                        <input type="range" id="bpmSlider" min="40" max="180" value="75">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="ampSlider">Amplitud de la Señal: <strong id="ampVal">1.0x</strong></label>
+                        <input type="range" id="ampSlider" min="0.2" max="2.0" step="0.1" value="1.0">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="noiseSlider">Ruido Gaussiano: <strong id="noiseVal">10%</strong></label>
+                        <input type="range" id="noiseSlider" min="0" max="100" value="10">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="humCheck">
+                            <input type="checkbox" id="humCheck"> Interferencia de Red (60 Hz)
+                        </label>
+                        <label for="wanderCheck">
+                            <input type="checkbox" id="wanderCheck"> Deriva de Línea Base (&lt;0.5 Hz)
+                        </label>
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <h3>🧹 Procesamiento Digital de Señales (Filtros)</h3>
+                <div class="buttons-grid">
+                    <button id="btnHighPass" class="btn btn-filter">Filtro Pasa-Altas (0.5 Hz)</button>
+                    <button id="btnLowPass" class="btn btn-filter">Filtro Pasa-Bajas (40 Hz)</button>
+                    <button id="btnNotch" class="btn btn-filter">Filtro Notch (60 Hz)</button>
+                    <button id="btnTogglePlay" class="btn btn-action">Pausar / Reanudar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="theory-section">
+            <div class="theory-card">
+                <h2>📐 Teoría de Señales Aplicada al ECG</h2>
+
+                <article class="theory-block">
+                    <h3>1. Muestreo y Teorema de Nyquist-Shannon</h3>
+                    <p>
+                        Para reconstruir una señal analógica sin aliasing, la frecuencia de muestreo debe ser al menos el doble de su frecuencia máxima.
+                    </p>
+                    <div class="formula-box" role="math" aria-label="Frecuencia de muestreo mayor o igual a dos veces la frecuencia máxima; 250 hercios da un período de muestreo de 4 milisegundos">
+                        <div class="equation"><i>f</i><sub>s</sub> ≥ 2 <i>f</i><sub>máx</sub></div>
+                        <div class="equation equation-detail">
+                            <i>f</i><sub>s</sub> = 250 Hz
+                            <span class="equation-arrow">⇒</span>
+                            <i>T</i><sub>s</sub> =
+                            <span class="fraction"><span>1</span><span>250</span></span>
+                            s = 0,004 s = 4 ms
+                        </div>
+                    </div>
+                </article>
+
+                <article class="theory-block">
+                    <h3>2. Contenido Frecuencial del ECG</h3>
+                    <ul>
+                        <li><strong>Deriva de Línea Base (&lt; 0.5 Hz):</strong> Producida por la respiración.</li>
+                        <li><strong>Ondas P y T (0.5 - 10 Hz):</strong> Despolarización auricular y repolarización ventricular.</li>
+                        <li><strong>Complejo QRS (5 - 40 Hz):</strong> Cambios rápidos de mayor amplitud (despolarización ventricular).</li>
+                        <li><strong>Ruido EMG e Interferencia (&gt; 50 Hz):</strong> Actividad muscular e interferencia de la red eléctrica (60 Hz).</li>
+                    </ul>
+                </article>
+
+                <article class="theory-block">
+                    <h3>3. Algoritmo de Detección de Picos R (Pan-Tompkins)</h3>
+                    <p>
+                        A partir del intervalo entre dos complejos QRS consecutivos se obtiene la frecuencia cardíaca y su frecuencia fundamental:
+                    </p>
+                    <div class="formula-box formula-stack" role="math" aria-label="BPM es igual a 60 dividido entre el intervalo RR; frecuencia en hercios es BPM dividido entre 60">
+                        <div class="equation">
+                            BPM =
+                            <span class="fraction"><span>60</span><span><i>T</i><sub>RR</sub></span></span>
+                        </div>
+                        <div class="equation">
+                            <i>f</i> =
+                            <span class="fraction"><span>BPM</span><span>60</span></span>
+                            <span class="equation-unit">Hz</span>
+                        </div>
+                        <div class="equation-example">Ejemplo: 75 BPM → 1,25 Hz · T<sub>RR</sub> = 0,80 s</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Proyecto de Teoría de Señales | Universidad de Manizales | Jerónimo Soto Villada & Milady Cristina Guapacha Montoya</p>
+    </footer>
+
+    <script src="js/ecgGenerator.js"></script>
+    <script src="js/signalProcessing.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/heartRateMonitor.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
