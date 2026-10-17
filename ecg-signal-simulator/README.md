@@ -32,13 +32,13 @@ Además de la simulación interactiva en el navegador, el repositorio incluye un
    ```
    Abre tu navegador web en `http://localhost:3000`.
 
-### Conectar un pulsómetro Bluetooth
+### Conectar un pulsioxímetro Bluetooth
 
 En la página, selecciona **Conectar pulsómetro Bluetooth** y elige un dispositivo BLE que implemente el servicio estándar **Heart Rate** (UUID `0x180D`). La lectura usa la característica estándar **Heart Rate Measurement** (`0x2A37`). El permiso de Bluetooth se solicita desde el navegador y puedes desconectar el sensor en cualquier momento.
 
 Web Bluetooth está disponible principalmente en Chrome y Edge, y requiere un contexto seguro: `http://localhost:3000` funciona para desarrollo; para acceder desde otro dispositivo o desplegar el sitio, sirve la página mediante HTTPS. No todos los relojes exponen sus datos a aplicaciones web, aunque midan la frecuencia cardíaca.
 
-> **Importante:** el pulsómetro transmite BPM, no una señal ECG. La aplicación muestra esos BPM medidos y los usa para ajustar el ritmo de una forma de onda ECG **sintética**; no captura ni diagnostica la actividad eléctrica real del corazón.
+> **Importante:** el pulsioxímetro transmite BPM, no una señal ECG. La aplicación muestra esos BPM medidos y los usa para ajustar el ritmo de una forma de onda ECG **sintética**; no captura ni diagnostica la actividad eléctrica real del corazón.
 
 2. **Ejecutar el script de Análisis de Frecuencia (FFT) y Filtrado Digital:**
    ```bash
