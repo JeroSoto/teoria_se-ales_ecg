@@ -1,4 +1,4 @@
-# 🫀 Simulación en Tiempo Real de ECG & Análisis Frecuencial (FFT)
+# Simulación en Tiempo Real de ECG & Análisis Frecuencial (FFT)
 
 **Asignatura:** Teoría de Señales  
 **Institución:** Universidad de Manizales  
@@ -7,16 +7,16 @@
 
 ---
 
-## 📌 1. Descripción del Proyecto
+## 1. Descripción del Proyecto
 Este proyecto es una plataforma interactiva web y de análisis de señales desarrollada con **Node.js**, **HTML5 Canvas**, **JavaScript Vanilla** y **Python (SciPy/NumPy)**. Permite simular en tiempo real la señal bioeléctrica de un **electrocardiograma (ECG)** generado por un pulsómetro o sensor de frecuencia cardíaca, e incorporar perturbaciones reales como ruido gaussiano, interferencia de red eléctrica (60 Hz) y deriva de línea base (<0.5 Hz).
 
 Además de la simulación interactiva en el navegador, el repositorio incluye un script en Python (`scripts/analisis_fft.py`) que calcula la **Transformada Rápida de Fourier (FFT)** de la señal y genera gráficas estáticas explicativas en la carpeta `results/`.
 
-> ⚠️ **Aviso de Carácter Educativo:** Este proyecto es un desarrollo computacional con fines estrictamente pedagógicos para la asignatura de Teoría de Señales. No constituye una herramienta de diagnóstico clínico ni reemplaza equipos médicos certificados.
+> **Aviso de Carácter Educativo:** Este proyecto es un desarrollo computacional con fines estrictamente pedagógicos para la asignatura de Teoría de Señales. No constituye una herramienta de diagnóstico clínico ni reemplaza equipos médicos certificados.
 
 ---
 
-## 🚀 2. Requisitos e Instalación
+## 2. Requisitos e Instalación
 
 ### Requisitos Previos
 * **Node.js** (v18.0.0 o superior)
@@ -52,7 +52,7 @@ Web Bluetooth está disponible principalmente en Chrome y Edge, y requiere un co
 
 ---
 
-## 📊 3. Fundamentos Teóricos de Señales Aplicados
+## 3. Fundamentos Teóricos de Señales Aplicados
 
 ### 3.1. Muestreo y Teorema de Nyquist-Shannon
 Para evitar el fenómeno de *aliasing* (traslape espectral), la frecuencia de muestreo $f_s$ debe cumplir:
@@ -75,7 +75,7 @@ En el espectro de magnitud $|X[k]|$, se identifican claramente:
 
 ---
 
-## 📁 4. Estructura del Repositorio
+## 4. Estructura del Repositorio
 * `src/server.js`: Servidor HTTP en Express.js.
 * `src/public/`: Aplicación frontend en HTML5 Canvas, CSS3 y JS Vanilla.
 * `scripts/analisis_fft.py`: Script de Python para cálculo de la FFT y filtros SciPy.
