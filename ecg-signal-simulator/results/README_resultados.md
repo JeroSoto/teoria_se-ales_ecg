@@ -1,8 +1,8 @@
-# 📈 Informe de Resultados y Análisis Frecuencial
+# Informe de Resultados y Análisis Frecuencial
 
 En esta carpeta se encuentran las gráficas exportadas del análisis frecuencial mediante la **Transformada Rápida de Fourier (FFT)** y la aplicación de filtros DSP sobre la señal sintética de ECG.
 
-## 🖼️ 1. Dominio del Tiempo vs. Dominio de la Frecuencia (`ecg_time_and_fft.png`)
+## 1. Dominio del Tiempo vs. Dominio de la Frecuencia (`ecg_time_and_fft.png`)
 ![Tiempo y FFT](ecg_time_and_fft.png)
 
 ### Interpretación Teórica:
@@ -12,7 +12,7 @@ En esta carpeta se encuentran las gráficas exportadas del análisis frecuencial
 
 ---
 
-## 🧹 2. Desempeño del Filtrado Digital DSP (`ecg_filtering_analysis.png`)
+## 2. Desempeño del Filtrado Digital DSP (`ecg_filtering_analysis.png`)
 ![Filtrado DSP](ecg_filtering_analysis.png)
 
 ### Relevancia Biomédica:
