@@ -18,7 +18,7 @@ app.get('/api/config', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`====================================================`);
-    console.log(`🚀 Servidor ECG iniciado correctamente.`);
-    console.log(`🌐 Accede en tu navegador a: http://localhost:${PORT}`);
+    console.log(`Servidor ECG iniciado correctamente.`);
+    console.log(`Accede en tu navegador a: http://localhost:${PORT}`);
     console.log(`====================================================`);
 });
